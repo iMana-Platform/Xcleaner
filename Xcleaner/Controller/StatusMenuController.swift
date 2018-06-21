@@ -12,12 +12,17 @@ class StatusMenuController: NSObject {
     
     @IBOutlet weak var statusMenu: NSMenu!
     
+    var preferencesWindowController: PreferencesWindowController!
+    
     let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
     
     override func awakeFromNib() {
         setupStatusItem()
+        
+        preferencesWindowController = PreferencesWindowController()
     }
 
+    
     
 }
 
@@ -31,9 +36,14 @@ extension StatusMenuController {
         NSWorkspace.shared.open(url)
     }
     
+    @IBAction func clickOnPreferences(_ sender: NSMenuItem) {
+        preferencesWindowController.showWindow(nil)
+    }
+    
     @IBAction func clickOnQuit(_ sender: NSMenuItem) {
         NSApplication.shared.terminate(self)
     }
+    
 }
 
 extension StatusMenuController {

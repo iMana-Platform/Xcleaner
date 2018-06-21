@@ -20,13 +20,23 @@
         </customObject>
         <menu id="0b1-yn-1IP">
             <items>
+                <menuItem title="Item" id="wIf-BZ-lgo">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+                <menuItem title="Preferences..." id="FKf-LM-0aj">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="clickOnPreferences:" target="iga-oN-0sQ" id="2My-W6-0Tg"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="P3E-3N-2aA"/>
                 <menuItem title="About" id="3d0-xy-QG5">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="clickOnAbout:" target="iga-oN-0sQ" id="mTk-xa-PKg"/>
                     </connections>
                 </menuItem>
-                <menuItem isSeparatorItem="YES" id="bjb-oF-DcZ"/>
+                <menuItem isSeparatorItem="YES" id="K2x-7x-oNq"/>
                 <menuItem title="Quit" id="hpK-2e-8Ac">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
@@ -34,7 +44,7 @@
                     </connections>
                 </menuItem>
             </items>
-            <point key="canvasLocation" x="138.5" y="165.5"/>
+            <point key="canvasLocation" x="12" y="117"/>
         </menu>
     </objects>
 </document>
