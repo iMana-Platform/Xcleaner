@@ -42,4 +42,16 @@ extension PreferencesWindowController {
             print(openPanel.url?.absoluteString)
         }
     }
+    
+    @IBAction func clickOnAutoClean(_ sender: NSButton) {
+        print(sender.state)
+    }
+    
+    @IBAction func clickOnShowOnMenuBar(_ sender: NSButton) {
+        print(sender.state)
+    }
+    
+    @IBAction func clickOnAutoLaunch(_ sender: NSButton) {
+        print(sender.state)
+    }
 }
