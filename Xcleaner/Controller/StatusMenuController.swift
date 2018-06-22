@@ -49,7 +49,7 @@ extension StatusMenuController {
 extension StatusMenuController {
     func setupStatusItem() {
         statusItem.menu = statusMenu
-        statusItem.title = "Xcleaner"
+        statusItem.button?.title = "Xcleaner"
     }
     
     

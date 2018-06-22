@@ -15,7 +15,7 @@ class PreferencesWindowController: NSWindowController {
     var pathItems: [Path] = []
     
     override var windowNibName: NSNib.Name? {
-        return NSNib.Name(rawValue: "PreferencesWindowController")
+        return .PreferencesWindowController
     }
 
     override func windowDidLoad() {
@@ -25,6 +25,10 @@ class PreferencesWindowController: NSWindowController {
         window?.makeKeyAndOrderFront(nil)
         
         NSApp.activate(ignoringOtherApps: true)
+        
+        tableView.register(NSNib.init(nibNamed: .EnabledCellView,
+                                      bundle: nil),
+                           forIdentifier: .EnabledCellID)
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -45,7 +49,7 @@ extension PreferencesWindowController {
             }
             
             if let directory = openPanel.url?.absoluteString {
-                let path = Path.init(directory: directory, size: 1000.99, isEnabled: false)
+                let path = Path.init(directory: directory, size: 1000000.99, isEnabled: false)
                 self.pathItems.append(path)
                 self.tableView.reloadData()
             }
@@ -72,37 +76,29 @@ extension PreferencesWindowController: NSTableViewDataSource {
 }
 
 extension PreferencesWindowController: NSTableViewDelegate {
-    enum CellIdentifier: String {
-        case PathCellID
-        case MaxCacheSizeCellID
-        case EnabledCellID
-    }
-    
     func tableView(_ tableView: NSTableView,
                    viewFor tableColumn: NSTableColumn?,
                    row: Int) -> NSView? {
-        let item = pathItems[row]
-        
-        var content = ""
-        var cellID = ""
-        
         switch tableColumn {
         case tableView.tableColumns[0]:
-            content = item.directory
-            cellID = CellIdentifier.PathCellID.rawValue
+            if let cell = tableView.makeView(withIdentifier: .PathCellID,
+                                             owner: nil) as? NSTableCellView {
+                cell.textField?.stringValue = pathItems[row].directory
+                return cell
+            }
         case tableView.tableColumns[1]:
-            content = "\(item.size)"
-            cellID = CellIdentifier.MaxCacheSizeCellID.rawValue
+            if let cell = tableView.makeView(withIdentifier: .SizeCellID,
+                                             owner: nil) as? NSTableCellView {
+                cell.textField?.stringValue = "\(pathItems[row].size)"
+                return cell
+            }
         case tableView.tableColumns[2]:
-//            content = item.isEnabled
-            cellID = CellIdentifier.EnabledCellID.rawValue
+            if let cell = tableView.makeView(withIdentifier: .EnabledCellID,
+                                             owner: nil) as? EnabledCellView {
+                cell.enabledButton.state = NSControl.StateValue(rawValue: pathItems[row].isEnabled ? 1 : 0)
+                return cell
+            }
         default: break
-        }
-        
-        if let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: cellID),
-                                         owner: nil) as? NSTableCellView {
-            cell.textField?.stringValue = content
-            return cell
         }
         
         return nil
