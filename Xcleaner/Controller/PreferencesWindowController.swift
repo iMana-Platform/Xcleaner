@@ -10,6 +10,10 @@ import Cocoa
 
 class PreferencesWindowController: NSWindowController {
     
+    @IBOutlet weak var tableView: NSTableView!
+    
+    var pathItems: [Path] = []
+    
     override var windowNibName: NSNib.Name? {
         return NSNib.Name(rawValue: "PreferencesWindowController")
     }
@@ -21,9 +25,10 @@ class PreferencesWindowController: NSWindowController {
         window?.makeKeyAndOrderFront(nil)
         
         NSApp.activate(ignoringOtherApps: true)
+        
+        tableView.delegate = self
+        tableView.dataSource = self
     }
-    
-    
 }
 
 // MARK: IBAction
@@ -39,7 +44,11 @@ extension PreferencesWindowController {
                 return
             }
             
-            print(openPanel.url?.absoluteString)
+            if let directory = openPanel.url?.absoluteString {
+                let path = Path.init(directory: directory, size: 1000.99, isEnabled: false)
+                self.pathItems.append(path)
+                self.tableView.reloadData()
+            }
         }
     }
     
@@ -53,5 +62,50 @@ extension PreferencesWindowController {
     
     @IBAction func clickOnAutoLaunch(_ sender: NSButton) {
         print(sender.state)
+    }
+}
+
+extension PreferencesWindowController: NSTableViewDataSource {
+    func numberOfRows(in tableView: NSTableView) -> Int {
+        return pathItems.count
+    }
+}
+
+extension PreferencesWindowController: NSTableViewDelegate {
+    enum CellIdentifier: String {
+        case PathCellID
+        case MaxCacheSizeCellID
+        case EnabledCellID
+    }
+    
+    func tableView(_ tableView: NSTableView,
+                   viewFor tableColumn: NSTableColumn?,
+                   row: Int) -> NSView? {
+        let item = pathItems[row]
+        
+        var content = ""
+        var cellID = ""
+        
+        switch tableColumn {
+        case tableView.tableColumns[0]:
+            content = item.directory
+            cellID = CellIdentifier.PathCellID.rawValue
+        case tableView.tableColumns[1]:
+            content = "\(item.size)"
+            cellID = CellIdentifier.MaxCacheSizeCellID.rawValue
+        case tableView.tableColumns[2]:
+//            content = item.isEnabled
+            cellID = CellIdentifier.EnabledCellID.rawValue
+        default: break
+        }
+        
+        if let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: cellID),
+                                         owner: nil) as? NSTableCellView {
+            cell.textField?.stringValue = content
+            return cell
+        }
+        
+        return nil
+        
     }
 }

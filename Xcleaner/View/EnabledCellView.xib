@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14113" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14113"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner"/>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <tableCellView identifier="EnabledCellID" id="SNc-Y6-5z0">
+            <rect key="frame" x="0.0" y="0.0" width="114" height="33"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="g6V-rj-Usf">
+                    <rect key="frame" x="46" y="8" width="22" height="18"/>
+                    <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="FhU-XQ-C7u">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                </button>
+            </subviews>
+            <constraints>
+                <constraint firstItem="g6V-rj-Usf" firstAttribute="centerY" secondItem="SNc-Y6-5z0" secondAttribute="centerY" id="ZwH-Sm-xUs"/>
+                <constraint firstItem="g6V-rj-Usf" firstAttribute="centerX" secondItem="SNc-Y6-5z0" secondAttribute="centerX" id="cjA-V9-f9s"/>
+            </constraints>
+            <point key="canvasLocation" x="153" y="196.5"/>
+        </tableCellView>
+    </objects>
+</document>
