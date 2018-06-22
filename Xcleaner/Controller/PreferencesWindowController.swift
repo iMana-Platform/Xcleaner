@@ -48,10 +48,16 @@ extension PreferencesWindowController {
                 return
             }
             
-            if let directory = openPanel.url?.absoluteString {
-                let path = Path.init(directory: directory, size: 1000000.99, isEnabled: false)
-                self.pathItems.append(path)
-                self.tableView.reloadData()
+            if let directory = openPanel.url?.absoluteString.replacingOccurrences(of: "file://", with: "") {
+                let directories = self.pathItems.map { $0.directory }
+                if directories.contains(directory) {
+                    print("-----")
+                } else {
+                    let path = Path.init(directory: directory, isEnabled: false)
+                    self.pathItems.append(path)
+                    self.tableView.reloadData()
+                }
+                
             }
         }
     }
