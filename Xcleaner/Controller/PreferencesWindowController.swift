@@ -73,7 +73,7 @@ class PreferencesWindowController: NSWindowController {
     
     func startCalculate(_ path: Path, for column: Int, row: Int) {
         calculate {
-            <#code#>
+            
         }
     }
     
